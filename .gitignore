@@ -13,4 +13,5 @@ Gemfile.lock
 .bundle
 
 *.env*
+README.html
 _init_client.rb

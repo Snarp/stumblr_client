@@ -1,6 +1,8 @@
 # STumblr Ruby Gem
 
-This is snarp's fork of the official Ruby wrapper for the Tumblr v2 API. It supports all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2).
+This is snarp's fork of the official Ruby wrapper for the Tumblr v2 API. It does not yet support all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2) - creation and editing of NPF posts is currently unfinished - but all other recently-added routes should be supported.
+
+The code is forked from the official [tumblr_client](https://github.com/tumblr/tumblr_client) gem as of version 0.8.5, which has not been updated since the transition to [NPF format](https://www.tumblr.com/docs/npf). My goal is to avoid breaking changes for those using the official gem; this is intended to be a drop-in replacement.
 
 ## Installation - TODO
 
@@ -81,9 +83,11 @@ From there, you should be able to run any of the above commands, with no problem
 
 The first time that you go to use the irb console, if you have no `.tumblr` file, it will walk you through the process of generating one. You will be prompted for your `consumer_key` and `consumer_secret` (which you can get here: https://www.tumblr.com/oauth/register) and then sent out to the site to verify your account. Once you verify, you will be redirected to your redirect URL (localhost by default) and copy the `oauth_verifier` back into the console. Then you're all set!
 
-### Contributions and Pull Requests
+### How To Run Tests
 
-No request is too small and I encourage everyone to get involved. As you can see, we're sorely lacking in tests! So please if you would like to contribute, let me know and throw me a pull request!
+```
+rspec spec
+```
 
 ### Requirements
 
