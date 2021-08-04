@@ -1,6 +1,8 @@
 module Tumblr
   class Client
 
+    VERSION = Tumblr::VERSION
+
     class << self
       def default_api_host
         ENV['TUMBLR_API_HOST'] || 'api.tumblr.com'
@@ -46,10 +48,6 @@ module Tumblr
       options = {}
       Config::VALID_OPTIONS_KEYS.each{ |pname| options[pname] = send(pname) }
       options
-    end
-
-    def version
-      Tumblr::VERSION
     end
 
   end
