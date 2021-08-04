@@ -1,6 +1,12 @@
 # STumblr Ruby Gem
 
-This is snarp's fork of the official Ruby wrapper for the Tumblr v2 API. It does not yet support all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2) - creation and editing of NPF posts is currently unfinished - but all other recently-added routes should be supported.
+This is a fork of the official Ruby wrapper for the Tumblr v2 API. It does not yet support all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2), as the following functions are unfinished:
+
+* creation and editing of NPF-format posts
+
+* deleting filtered content strings
+
+* submitting an array of multiple filtered content strings
 
 The code is forked from the official [tumblr_client](https://github.com/tumblr/tumblr_client) gem as of version 0.8.5, which has not been updated since the transition to [NPF format](https://www.tumblr.com/docs/npf). My goal is to avoid breaking changes for those using the official gem; this is intended to be a drop-in replacement.
 
