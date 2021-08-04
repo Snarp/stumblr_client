@@ -20,10 +20,10 @@ module Tumblr
     include Tumblr::User
     include Tumblr::Post
     include Tumblr::Tagged
-    include Tumblr::Helper
+    include Tumblr::Helpers
     include Tumblr::Connection
 
-    def initialize(attrs= {})
+    def initialize(attrs={})
       attrs = Tumblr.options.merge(attrs)
       Config::VALID_OPTIONS_KEYS.each do |key|
         instance_variable_set("@#{key}".to_sym, attrs[key])
