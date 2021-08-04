@@ -1,13 +1,11 @@
-# Tumblr Ruby Gem
+# STumblr Ruby Gem
 
-[![Gem Version](https://badge.fury.io/rb/tumblr_client.png)](https://badge.fury.io/rb/tumblr_client) [![Build Status](https://secure.travis-ci.org/tumblr/tumblr_client.png)](https://travis-ci.org/tumblr/tumblr_client)
+This is snarp's fork of the official Ruby wrapper for the Tumblr v2 API. It supports all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2).
 
-This is the official Ruby wrapper for the Tumblr v2 API. It supports all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2).
-
-## Installation
+## Installation - TODO
 
 ```
-gem install tumblr_client
+gem install stumblr_client
 ```
 
 ## Usage

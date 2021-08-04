@@ -12,16 +12,16 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'webmock'
   gem.add_development_dependency 'simplecov'
-  gem.authors = ['John Bunting', 'John Crepezzi']
-  gem.description = %q{A Ruby wrapper for the Tumblr v2 API}
-  gem.email = ['codingjester@gmail.com', 'john@crepezzi.com']
+  gem.authors = ['snarp', 'John Bunting', 'John Crepezzi']
+  gem.description = %q{A Ruby wrapper for the Tumblr v2 API - fork by snarp}
+  gem.email = ['snarp@snarp.work', 'codingjester@gmail.com', 'john@crepezzi.com']
   gem.executables = `git ls-files -- bin/*`.split("\n").map{|f| File.basename(f)}
   gem.files = `git ls-files`.split("\n")
-  gem.homepage = "http://github.com/tumblr/tumblr_client"
+  gem.homepage = "https://github.com/Snarp/stumblr_client"
   gem.license = "Apache"
-  gem.name = "tumblr_client"
+  gem.name = "stumblr_client"
   gem.require_paths = ["lib"]
-  gem.summary = %q{Tumblr API wrapper}
+  gem.summary = %q{Tumblr API wrapper - fork by snarp}
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.version = Tumblr::VERSION
 end
