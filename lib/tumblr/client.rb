@@ -15,6 +15,9 @@ module Tumblr
     include Tumblr::Helpers
     include Tumblr::Connection
 
+
+    attr_accessor *Config::VALID_OPTIONS_KEYS
+
     def initialize(attrs={})
       attrs = Tumblr.options.merge(attrs)
       Config::VALID_OPTIONS_KEYS.each do |key|
@@ -37,6 +40,16 @@ module Tumblr
         :token => @oauth_token,
         :token_secret => @oauth_token_secret
       }
+    end
+
+    def options
+      options = {}
+      Config::VALID_OPTIONS_KEYS.each{ |pname| options[pname] = send(pname) }
+      options
+    end
+
+    def version
+      Tumblr::VERSION
     end
 
   end

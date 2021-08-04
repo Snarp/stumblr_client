@@ -4,10 +4,10 @@ require 'faraday_middleware'
 module Tumblr
   module Connection
 
-    def connection(options={})
+    def connection(symbolize_names: @symbolize_names, **options)
       options = options.clone
 
-      symbolize_names = !!options.delete(:symbolize_names)
+      puts "#{{symbolize_names: symbolize_names}}"
 
       default_options = {
         :headers => {
