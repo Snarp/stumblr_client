@@ -1,5 +1,13 @@
-require 'tumblr/client'
-require 'tumblr/config'
+require_relative 'tumblr/blog'
+require_relative 'tumblr/user'
+require_relative 'tumblr/request'
+require_relative 'tumblr/connection'
+require_relative 'tumblr/post'
+require_relative 'tumblr/tagged'
+require_relative 'tumblr/helpers'
+
+require_relative 'tumblr/client'
+require_relative 'tumblr/config'
 
 module Tumblr
 

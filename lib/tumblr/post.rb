@@ -95,53 +95,53 @@ module Tumblr
 
     private
 
-    def post_path(blog_name)
-      blog_path(blog_name, 'post')
-    end
-
-    # Allow source to be passed as an Array
-    def convert_source_array(key, options)
-      if options.has_key?(key) && options[key].kind_of?(Array)
-        options[key].each.with_index do |src, idx|
-          options["#{key.to_s}[#{idx}]"] = src
-        end
-        options.delete(key)
+      def post_path(blog_name)
+        blog_path(blog_name, 'post')
       end
-    end
 
-    # Look for the various ways that data can be passed, and normalize
-    # the result in this hash
-    def extract_data!(options)
-      if options.has_key?(:data)
-        data = options.delete :data
-        
-        if Array === data
-          data.each.with_index do |filepath, idx|
-            if filepath.is_a?(Faraday::UploadIO)
-              options["data[#{idx}]"] = filepath
-            else
-              mime_type = extract_mimetype(filepath)
-              options["data[#{idx}]"] = Faraday::UploadIO.new(filepath, mime_type)
-            end
+      # Allow source to be passed as an Array
+      def convert_source_array(key, options)
+        if options.has_key?(key) && options[key].kind_of?(Array)
+          options[key].each.with_index do |src, idx|
+            options["#{key.to_s}[#{idx}]"] = src
           end
-        elsif data.is_a?(Faraday::UploadIO)
-          options["data"] = data
-        else
-          mime_type = extract_mimetype(data)
-          options["data"] = Faraday::UploadIO.new(data, mime_type)
+          options.delete(key)
         end
       end
-    end
 
-    def extract_mimetype(filepath)
-      mime = MIME::Types.type_for(filepath)
-      if (mime.empty?)
-        mime_type = "application/octet-stream"
-      else
-        mime_type = MIME::Types.type_for(filepath)[0].content_type
+      # Look for the various ways that data can be passed, and normalize
+      # the result in this hash
+      def extract_data!(options)
+        if options.has_key?(:data)
+          data = options.delete :data
+          
+          if Array === data
+            data.each.with_index do |filepath, idx|
+              if filepath.is_a?(Faraday::UploadIO)
+                options["data[#{idx}]"] = filepath
+              else
+                mime_type = extract_mimetype(filepath)
+                options["data[#{idx}]"] = Faraday::UploadIO.new(filepath, mime_type)
+              end
+            end
+          elsif data.is_a?(Faraday::UploadIO)
+            options["data"] = data
+          else
+            mime_type = extract_mimetype(data)
+            options["data"] = Faraday::UploadIO.new(data, mime_type)
+          end
+        end
       end
-      mime_type
-    end
+
+      def extract_mimetype(filepath)
+        mime = MIME::Types.type_for(filepath)
+        if (mime.empty?)
+          mime_type = "application/octet-stream"
+        else
+          mime_type = MIME::Types.type_for(filepath)[0].content_type
+        end
+        mime_type
+      end
 
   end
 end

@@ -1,11 +1,3 @@
-require 'tumblr/blog'
-require 'tumblr/user'
-require 'tumblr/request'
-require 'tumblr/connection'
-require 'tumblr/post'
-require 'tumblr/tagged'
-require 'tumblr/helpers'
-
 module Tumblr
   class Client
 

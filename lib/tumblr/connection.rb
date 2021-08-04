@@ -7,6 +7,8 @@ module Tumblr
     def connection(options={})
       options = options.clone
 
+      symbolize_names = !!options.delete(:symbolize_names)
+
       default_options = {
         :headers => {
           :accept => 'application/json',
@@ -24,7 +26,7 @@ module Tumblr
         end
         conn.request :multipart
         conn.request :url_encoded
-        conn.response :json, :content_type => /\bjson$/
+        conn.response :json, content_type: /\bjson$/, parser_options: {symbolize_names: symbolize_names}
         conn.adapter client
       end
     end
