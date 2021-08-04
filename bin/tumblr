@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+$:.unshift File.join File.dirname(__FILE__), '..', 'lib'
+require 'rubygems'
+require 'tumblr_client'
+require 'oauth'
+require 'yaml'
+require 'irb'
+require 'irb/completion'
+
+path = File.join ENV['HOME'], '.tumblr'
+
+host = Tumblr::Client.default_api_host.dup
+host.gsub! 'api.', 'www.'
+
+if File.exist?(path)
+
+  # Load configuration from data
+  configuration = YAML.load_file path
+  Tumblr.configure do |config|
+    Tumblr::Config::VALID_OPTIONS_KEYS.each do |key|
+      config.send(:"#{key}=", configuration[key.to_s])
+    end
+  end
+
+else
+
+  Tumblr.configure do |config|
+
+    puts "Register an application at: http://#{host}/oauth/apps"
+    print 'OAuth Consumer key: '
+    config.consumer_key = gets.chomp
+
+    print 'OAuth Consumer secret: '
+    config.consumer_secret = gets.chomp
+
+    site = "http://#{host}"
+    consumer = OAuth::Consumer.new(config.consumer_key, config.consumer_secret, :site => site)
+    request_token = consumer.get_request_token :exclude_callback => true
+
+    puts
+
+    puts request_token.authorize_url
+    puts "Post-redirect, copy the oauth_verifier"
+    print 'OAuth Verifier: '
+    verifier = gets.chomp
+
+    access_token = request_token.get_access_token :oauth_verifier => verifier
+    config.oauth_token = access_token.token
+    config.oauth_token_secret = access_token.secret
+
+  end
+
+  # Save credentials
+  File.open(path, 'w') do |f|
+    configuration = {}
+    Tumblr::Config::VALID_OPTIONS_KEYS.each do |key|
+      configuration[key.to_s] = Tumblr.send(key)
+    end
+    f.write YAML.dump configuration
+  end
+
+end
+
+
+ENV['IRBRC'] = '.irbrc' if File.exists? '.irbrc'
+
+puts %q[
+        .                                 .o8       oooo
+      .o8                                "888       `888
+    .o888oo oooo  oooo  ooo. .oo.  .oo.   888oooo.   888  oooo d8b
+      888   `888  `888  `888P"Y88bP"Y88b  d88' `88b  888  `888""8P
+      888    888   888   888   888   888  888   888  888   888
+      888 .  888   888   888   888   888  888   888  888   888    .o.
+      "888"  `V88V"V8P' o888o o888o o888o `Y8bod8P' o888o d888b   Y8P
+
+]
+
+ARGV.clear
+IRB.start
+exit!

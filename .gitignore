@@ -1,0 +1,16 @@
+*.gem
+.DS_Store
+
+*.swp
+*.swo
+
+tmp
+coverage
+.rspec
+
+Gemfile.lock
+
+.bundle
+
+*.env*
+_init_client.rb
