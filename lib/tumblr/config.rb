@@ -8,6 +8,7 @@ module Tumblr
       :oauth_token_secret,
       :client,
       :api_scheme, 
+      :api_host, 
       :symbolize_names
     ]
 

@@ -1,8 +1,6 @@
 module Tumblr
   class Client
 
-    VERSION = Tumblr::VERSION
-
     class << self
       def default_api_host
         ENV['TUMBLR_API_HOST'] || 'api.tumblr.com'
@@ -28,7 +26,7 @@ module Tumblr
     end
 
     def api_host
-      self.class.default_api_host
+      @api_host || self.class.default_api_host
     end
 
     def api_scheme
