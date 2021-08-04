@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.email = ['snarp@snarp.work', 'codingjester@gmail.com', 'john@crepezzi.com']
   gem.executables = `git ls-files -- bin/*`.split("\n").map{|f| File.basename(f)}
   gem.files = `git ls-files`.split("\n")
-  gem.homepage = "https://github.com/Snarp/stumblr_client"
+  gem.homepage = "https://github.com/snarp/stumblr_client"
   gem.license = "Apache"
   gem.name = "stumblr_client"
   gem.require_paths = ["lib"]
