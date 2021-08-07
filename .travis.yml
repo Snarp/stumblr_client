@@ -1,10 +1,11 @@
 script: 'rspec spec'
 notifications:
   email:
-    - john.crepezzi@gmail.com
+    - admin@sarahpin.com
 branches:
-  # only:
-  #   - master
+  only:
+    - main
+    - master
 rvm:
   - 2.6
   - 2.7
