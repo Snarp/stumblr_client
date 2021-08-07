@@ -98,7 +98,7 @@ rspec spec
 ### Build And Install Locally
 
 ```bash
-gem build tumblr_client.gemspec
+gem build stumblr_client.gemspec
 # => Successfully built RubyGem
 # => Name: stumblr_client
 # => Version: 0.8.7
