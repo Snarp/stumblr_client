@@ -1,3 +1,4 @@
+language: ruby
 script: 'rspec spec'
 notifications:
   email:
