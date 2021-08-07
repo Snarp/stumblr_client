@@ -99,6 +99,10 @@ rspec spec
 
 ```bash
 gem build tumblr_client.gemspec
+# => Successfully built RubyGem
+# => Name: stumblr_client
+# => Version: 0.8.7
+# => File: stumblr_client-0.8.7.gem
 gem install ./tumblr_client-0.8.7.gem  # insert correct version number
 ```
 
