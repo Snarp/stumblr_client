@@ -1,5 +1,7 @@
 # STumblr Ruby Gem
 
+[![Build Status](https://travis-ci.com/Snarp/stumblr_client.svg?token=gQZCnsXnzRnxzTUwfki8&branch=main)](https://travis-ci.com/Snarp/stumblr_client)
+
 This is a fork of the official Ruby wrapper for the Tumblr v2 API. It does not yet support all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2), as the following functions are unfinished:
 
 * creation and editing of NPF-format posts
@@ -12,7 +14,7 @@ The code is forked from the official [tumblr_client](https://github.com/tumblr/t
 
 ## Installation - TODO
 
-```
+```bash
 gem install stumblr_client
 ```
 
