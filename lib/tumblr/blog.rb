@@ -63,7 +63,7 @@ module Tumblr
     end
 
     # Get notes for post of given ID
-    def notes(blog_name, post_id=nil, options = {})
+    def notes(blog_name, post_id=nil, **options)
       validate_options([:id, :before_timestamp, :mode], options)
       options[:id] ||= post_id
       get(blog_path(blog_name, 'notes'), options)

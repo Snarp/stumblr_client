@@ -46,7 +46,7 @@ module Tumblr
     #         always returns `{:status=>400, :msg=>"Bad Request"}`
     # @param [String] filtered_strings
     # @param [Hash] options
-    def delete_filtered_content(filtered_strings=nil, options={})
+    def delete_filtered_content(filtered_strings=nil, **options)
       validate_options([:filtered_content], options)
       options[:filtered_content] ||= filtered_strings
       delete('v2/user/filtered_content', options)
@@ -60,7 +60,7 @@ module Tumblr
     # 
     # @param [String] filtered_strings
     # @param [Hash] options
-    def add_filtered_content(filtered_strings=nil, options={})
+    def add_filtered_content(filtered_strings=nil, **options)
       validate_options([:filtered_content], options)
       options[:filtered_content] ||= filtered_strings
       post('v2/user/filtered_content', options)
@@ -73,7 +73,7 @@ module Tumblr
     # 
     # SOURCE: <https://www.tumblr.com/docs/en/api/v2#userfiltered_content---content-filtering>
     # 
-    # def add_filtered_content(filtered_content=nil, options={})
+    # def add_filtered_content(filtered_content=nil, **options)
     #   validate_options([:filtered_content], options)
     #   filtered_content = [
     #     filtered_content || options[:filtered_content]
