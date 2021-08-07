@@ -91,8 +91,15 @@ The first time that you go to use the irb console, if you have no `.tumblr` file
 
 ### How To Run Tests
 
-```
+```bash
 rspec spec
+```
+
+### Build And Install Locally
+
+```bash
+gem build tumblr_client.gemspec
+gem install ./tumblr_client-0.8.7.gem  # insert correct version number
 ```
 
 ### Requirements
