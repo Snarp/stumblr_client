@@ -6,7 +6,7 @@ module Tumblr
     end
 
     def dashboard(options = {})
-      valid_opts=[:limit, :offset, :type, :since_id, :reblog_info, :notes_info]
+      valid_opts=[:limit,:offset,:type,:since_id,:reblog_info,:notes_info,:npf]
       validate_options(valid_opts, options)
       get('v2/user/dashboard', options)
     end
