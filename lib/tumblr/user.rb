@@ -43,16 +43,21 @@ module Tumblr
     end
     alias_method :get_filtered_content, :filtered_content
 
-    # REVIEW: As of 2022-02-02, this API route appears to be broken; 
-    #         always returns `{:status=>400, :msg=>"Bad Request"}`
+    # REVIEW: As of 2022-02-02, this API route appears to be broken; it always returns `{:status=>400, :msg=>"Bad Request"}`. This is true regardless of whether the request body uses a 'application/json' (string array) or 'application/x-www-form-urlencoded' (single string) request body.
     # 
-    # @param [String]        filtered_string
-    # @param [Hash]          options
+    # @param [String, Array<String>] filtered_content
+    # @param [Hash]                  options
     # @return [Array, Hash]  `[]` if successful, otherwise error message Hash
-    def delete_filtered_content(filtered_string=nil, **options)
+    def delete_filtered_content(filtered_content=[], **options)
       validate_options([:filtered_content], options)
-      options[:filtered_content] ||= filtered_string
-      delete('v2/user/filtered_content', **options)
+      options[:filtered_content] ||= filtered_content
+      if options[:filtered_content].is_a?(Array)
+        delete('v2/user/filtered_content', as_json: true, **options)
+      elsif options[:filtered_content].is_a?(String)
+        delete('v2/user/filtered_content', **options)
+      else
+        raise ArgumentError.new
+      end
     end
 
     # @param [Array<String>]  filtered_strings
