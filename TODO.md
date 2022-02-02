@@ -2,11 +2,11 @@
 
 ## Minor Todo:
 
-- [`/user/filtered_tags`](https://github.com/tumblr/docs/blob/master/api.md#userfiltered_tags---tag-filtering)
-
 - [`/user/filtered_content` - DELETE](https://github.com/tumblr/docs/blob/master/api.md#userfiltered_content---content-filtering)
 
 - [`/blog/posts?tag[0]=something&tag[1]=example`](https://github.com/tumblr/docs/blob/master/api.md#request-parameters-17)
+
+- <del>[`/user/filtered_tags`](https://github.com/tumblr/docs/blob/master/api.md#userfiltered_tags---tag-filtering)</del>
 
 - <del>[`/blog/blocks/bulk`](https://github.com/tumblr/docs/blob/master/api.md#blocksbulk--block-a-list-of-blogs)</del>
 

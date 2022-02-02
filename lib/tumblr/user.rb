@@ -43,30 +43,30 @@ module Tumblr
     end
     alias_method :get_filtered_content, :filtered_content
 
-    # REVIEW: As of 2022-02-02, this API route appears to be broken; it always returns `{:status=>400, :msg=>"Bad Request"}`. This is true regardless of whether the request body uses a 'application/json' (string array) or 'application/x-www-form-urlencoded' (single string) request body.
-    # 
     # @param [String, Array<String>] filtered_content
     # @param [Hash]                  options
-    # @return [Array, Hash]  `[]` if successful, otherwise error message Hash
-    def delete_filtered_content(filtered_content=[], **options)
+    # @return [Array, Hash]   `[]` if successful, otherwise error message Hash
+    def add_filtered_content(filtered_strings=[], **options)
       validate_options([:filtered_content], options)
-      options[:filtered_content] ||= filtered_content
+      options[:filtered_content] ||= filtered_strings
       if options[:filtered_content].is_a?(Array)
-        delete('v2/user/filtered_content', as_json: true, **options)
+        post('v2/user/filtered_content', as_json: true, **options)
       elsif options[:filtered_content].is_a?(String)
-        delete('v2/user/filtered_content', **options)
+        post('v2/user/filtered_content', **options)
       else
         raise ArgumentError.new
       end
     end
 
-    # @param [Array<String>]  filtered_strings
-    # @param [Hash]           options
-    # @return [Array, Hash]   `[]` if successful, otherwise error message Hash
-    def add_filtered_content(filtered_strings=[], **options)
+    # REVIEW: As of 2022-02-02, this API route appears to be broken; it always returns `{:status=>400, :msg=>"Bad Request"}`. This is true regardless of whether the request body uses a 'application/json' (string array) or 'application/x-www-form-urlencoded' (single string) request body.
+    # 
+    # @param [String]        filtered_content
+    # @param [Hash]          options
+    # @return [Array, Hash]  `[]` if successful, otherwise error message Hash
+    def delete_filtered_content(filtered_content=nil, **options)
       validate_options([:filtered_content], options)
-      options[:filtered_content] ||= filtered_strings
-      post('v2/user/filtered_content', as_json: true, **options)
+      options[:filtered_content] ||= filtered_content
+      delete('v2/user/filtered_content', **options)
     end
 
 

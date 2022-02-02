@@ -121,9 +121,14 @@ describe Tumblr::User do
   end
 
   describe :add_filtered_content do
-    it 'should make the reqest properly' do
-      expect(client).to receive(:post).with("v2/user/filtered_content", {as_json: true, filtered_content: ['str']}).and_return('response')
-      r = client.add_filtered_content ['str']
+    it 'should make a single-string request properly' do
+      expect(client).to receive(:post).with("v2/user/filtered_content", {filtered_content: 'str'}).and_return('response')
+      r = client.add_filtered_content 'str'
+      expect(r).to eq('response')
+    end
+    it 'should make a string array request properly' do
+      expect(client).to receive(:post).with("v2/user/filtered_content", {as_json: true, filtered_content: ['str1','str2']}).and_return('response')
+      r = client.add_filtered_content ['str1','str2']
       expect(r).to eq('response')
     end
   end
