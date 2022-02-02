@@ -113,14 +113,22 @@ module Tumblr
     end
     alias_method :blocked, :blocks
 
-    # Block a blog (blockee_blog) from blocker_blog (if authorized)
+    # Block a blog (`blockee_blog`) from `blocker_blog` (if authorized)
     def block(blocker_blog, blockee_blog=nil, **options)
       validate_options([:blocked_tumblelog, :post_id], options)
       options[:blocked_tumblelog] ||= blockee_blog
       post(blog_path(blocker_blog, 'blocks'), options)
     end
 
-    # Unblock a blog (blockee_blog) from blocker_blog (if authorized)
+    # Block a list of blogs (`blocked_tumblelogs`) from `blocker_blog` (if authorized)
+    def block_bulk(blocker_blog, blocked_tumblelogs=[], force: false, **options)
+      validate_options([:blocked_tumblelogs], options)
+      options[:blocked_tumblelogs] ||= blocked_tumblelogs.join(',')
+      options[:force] = force
+      post(blog_path(blocker_blog, 'blocks/bulk'), options)
+    end
+
+    # Unblock a blog (`blockee_blog`) from `blocker_blog` (if authorized)
     def unblock(blocker_blog, blockee_blog=nil, **options)
       validate_options([:blocked_tumblelog, :anonymous_only], options)
       options[:blocked_tumblelog] ||= blockee_blog

@@ -5,6 +5,7 @@ describe Tumblr::Blog do
   let(:blog_name) { 'seejohnrun.tumblr.com' }
   let(:post_id) { 45693025 }
   let(:other_blog_name) { 'staff' }
+  let(:third_blog_name) { 'engineering' }
   let(:consumer_key) { 'ckey' }
   let(:client) do
     Tumblr::Client.new :consumer_key => consumer_key
@@ -358,6 +359,26 @@ describe Tumblr::Blog do
       end
     end
   end # describe :block
+
+  describe :block_bulk do
+    context 'with invalid parameters' do
+      it 'should raise an error' do
+        expect(lambda {
+          client.block_bulk blog_name, [other_blog_name, third_blog_name], not: 'an option'
+        }).to raise_error ArgumentError
+      end
+    end
+
+    context 'with valid parameters' do
+      before do
+        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/blocks/bulk", blocked_tumblelogs: "#{other_blog_name},#{third_blog_name}", force: false).and_return('response')
+      end
+      it 'should construct the request properly' do
+        r = client.block_bulk blog_name, [other_blog_name, third_blog_name]
+        expect(r).to eq('response')
+      end
+    end
+  end # describe :block_bulk
 
   describe :unblock do
     context 'with invalid parameters' do
