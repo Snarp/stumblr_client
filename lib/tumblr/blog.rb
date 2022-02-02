@@ -45,7 +45,7 @@ module Tumblr
     end
 
     # Get public posts from blog
-    def posts(blog_name, options = {})
+    def posts(blog_name, **options)
       url = blog_path(blog_name, 'posts')
       if options.has_key?(:type)
         url = "#{url}/#{options[:type]}"
@@ -78,7 +78,7 @@ module Tumblr
     # Reorder blog's queue (if authorized)
     def reorder_queue(blog_name, options = {})
       validate_options([:post_id, :insert_after], options)
-      post(blog_path(blog_name, 'posts/queue/reorder'), options)
+      post(blog_path(blog_name, 'posts/queue/reorder'), **options)
     end
 
     # Shuffle blog's queue (if authorized)
@@ -117,7 +117,7 @@ module Tumblr
     def block(blocker_blog, blockee_blog=nil, **options)
       validate_options([:blocked_tumblelog, :post_id], options)
       options[:blocked_tumblelog] ||= blockee_blog
-      post(blog_path(blocker_blog, 'blocks'), options)
+      post(blog_path(blocker_blog, 'blocks'), **options)
     end
 
     # Block a list of blogs (`blocked_tumblelogs`) from `blocker_blog` (if authorized)
@@ -125,14 +125,14 @@ module Tumblr
       validate_options([:blocked_tumblelogs], options)
       options[:blocked_tumblelogs] ||= blocked_tumblelogs.join(',')
       options[:force] = force
-      post(blog_path(blocker_blog, 'blocks/bulk'), options)
+      post(blog_path(blocker_blog, 'blocks/bulk'), **options)
     end
 
     # Unblock a blog (`blockee_blog`) from `blocker_blog` (if authorized)
     def unblock(blocker_blog, blockee_blog=nil, **options)
       validate_options([:blocked_tumblelog, :anonymous_only], options)
       options[:blocked_tumblelog] ||= blockee_blog
-      delete(blog_path(blocker_blog, 'blocks'), options)
+      delete(blog_path(blocker_blog, 'blocks'), **options)
     end
 
   end

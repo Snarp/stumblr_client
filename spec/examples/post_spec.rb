@@ -150,7 +150,7 @@ describe Tumblr::Post do
       end
 
       it 'should call the right method and grab the return' do
-        expect(client.create_post(:photo, blog_name, args)).to eq('hi')
+        expect(client.create_post(:photo, blog_name, **args)).to eq('hi')
       end
 
     end

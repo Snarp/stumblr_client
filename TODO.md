@@ -2,13 +2,13 @@
 
 ## Minor Todo:
 
-- [`/blog/posts?tag[0]=something&tag[1]=example`](https://github.com/tumblr/docs/blob/master/api.md#request-parameters-17)
-
 - <del>[`/user/filtered_content` - DELETE](https://github.com/tumblr/docs/blob/master/api.md#userfiltered_content---content-filtering)</del> - appears to be a Tumblr-side error
 
 - <del>[`/user/filtered_tags`](https://github.com/tumblr/docs/blob/master/api.md#userfiltered_tags---tag-filtering)</del>
 
 - <del>[`/blog/blocks/bulk`](https://github.com/tumblr/docs/blob/master/api.md#blocksbulk--block-a-list-of-blogs)</del>
+
+- <del>[`/blog/posts?tag[0]=something&tag[1]=example`](https://github.com/tumblr/docs/blob/master/api.md#request-parameters-17)</del> - no changes needed
 
 ## Major Todo:
 
