@@ -37,60 +37,54 @@ module Tumblr
       post('v2/user/unlike', :id => id, :reblog_key => reblog_key)
     end
 
+    # @return [Hash] `{ filtered_content: ['string 1','string 2', ...] }`
     def filtered_content
       get('v2/user/filtered_content')
     end
     alias_method :get_filtered_content, :filtered_content
 
-    # REVIEW: As of 2021-08-04, this API route appears to be broken; 
+    # REVIEW: As of 2022-02-02, this API route appears to be broken; 
     #         always returns `{:status=>400, :msg=>"Bad Request"}`
-    # @param [String] filtered_strings
-    # @param [Hash] options
-    def delete_filtered_content(filtered_strings=nil, **options)
+    # 
+    # @param [String]        filtered_string
+    # @param [Hash]          options
+    # @return [Array, Hash]  `[]` if successful, otherwise error message Hash
+    def delete_filtered_content(filtered_string=nil, **options)
       validate_options([:filtered_content], options)
-      options[:filtered_content] ||= filtered_strings
-      delete('v2/user/filtered_content', options)
+      options[:filtered_content] ||= filtered_string
+      delete('v2/user/filtered_content', **options)
     end
 
-    # FIXME: When an array of multiple strings is included, this method 
-    #        always returns `{:status=>401, :msg=>"Unauthorized"}`.
-    #        The rewritten method below follows the API doc formatting more
-    #        closely, but also returns an error. Change Faraday POST body
-    #        type?
-    # 
-    # @param [String] filtered_strings
-    # @param [Hash] options
-    def add_filtered_content(filtered_strings=nil, **options)
+    # @param [Array<String>]  filtered_strings
+    # @param [Hash]           options
+    # @return [Array, Hash]   `[]` if successful, otherwise error message Hash
+    def add_filtered_content(filtered_strings=[], **options)
       validate_options([:filtered_content], options)
       options[:filtered_content] ||= filtered_strings
-      post('v2/user/filtered_content', options)
+      post('v2/user/filtered_content', as_json: true, **options)
     end
 
-    # EXAMPLE REQUEST BODIES:
-    # 
-    #     `filtered_content=something`
-    #     `filtered_content[0]=something&filtered_content[1]=technology`
-    # 
-    # SOURCE: <https://www.tumblr.com/docs/en/api/v2#userfiltered_content---content-filtering>
-    # 
-    # def add_filtered_content(filtered_content=nil, **options)
-    #   validate_options([:filtered_content], options)
-    #   filtered_content = [
-    #     filtered_content || options[:filtered_content]
-    #   ].flatten.map { |str| str.strip.downcase }.uniq
 
-    #   if    filtered_content.count==1
-    #     options = "filtered_content=#{filtered_content[0]}"
-    #   elsif filtered_content.count >1
-    #     options = []
-    #     filtered_content.each_with_index do |str,i|
-    #       options.push("filtered_content[#{i}]=#{str.strip}")
-    #     end
-    #     options = options.join('&')
-    #   end
-    #   # puts "#{{ path: 'v2/user/filtered_content', body: options }}"
-    #   post('v2/user/filtered_content', options)
-    # end
+    # @return [Hash] `{ filtered_tags: ['tag 1','tag 2',...]}`
+    def filtered_tags
+      get('v2/user/filtered_tags')
+    end
+    alias_method :get_filtered_tags, :filtered_tags
+
+    # @param [Array<String>] filtered_tags
+    # @param [Hash]          options
+    # @return [Array, Hash]  `[]` if successful, otherwise error message Hash
+    def add_filtered_tags(filtered_tags=[], **options)
+      validate_options([:filtered_tags], options)
+      options[:filtered_tags] ||= filtered_tags
+      post('v2/user/filtered_tags', as_json: true, **options)
+    end
+
+    # @param [String]        tag
+    # @return [Array, Hash]  `[]` if successful, otherwise error message Hash
+    def delete_filtered_tag(tag)
+      delete("v2/user/filtered_tags/#{tag}")
+    end
 
   end
 end

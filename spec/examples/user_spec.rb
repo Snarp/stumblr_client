@@ -122,7 +122,7 @@ describe Tumblr::User do
 
   describe :add_filtered_content do
     it 'should make the reqest properly' do
-      expect(client).to receive(:post).with("v2/user/filtered_content", filtered_content: ['str']).and_return('response')
+      expect(client).to receive(:post).with("v2/user/filtered_content", {as_json: true, filtered_content: ['str']}).and_return('response')
       r = client.add_filtered_content ['str']
       expect(r).to eq('response')
     end
@@ -132,6 +132,31 @@ describe Tumblr::User do
     it 'should make the reqest properly' do
       expect(client).to receive(:delete).with("v2/user/filtered_content", filtered_content: ['str']).and_return('response')
       r = client.delete_filtered_content ['str']
+      expect(r).to eq('response')
+    end
+  end
+
+
+  describe :filtered_tags do
+    it 'should make the reqest properly' do
+      expect(client).to receive(:get).with("v2/user/filtered_tags").and_return('response')
+      r = client.filtered_tags
+      expect(r).to eq('response')
+    end
+  end
+
+  describe :add_filtered_tags do
+    it 'should make the reqest properly' do
+      expect(client).to receive(:post).with("v2/user/filtered_tags", {as_json: true, filtered_tags: ['str']}).and_return('response')
+      r = client.add_filtered_tags ['str']
+      expect(r).to eq('response')
+    end
+  end
+
+  describe :delete_filtered_tag do
+    it 'should make the reqest properly' do
+      expect(client).to receive(:delete).with("v2/user/filtered_tags/str").and_return('response')
+      r = client.delete_filtered_tag 'str'
       expect(r).to eq('response')
     end
   end

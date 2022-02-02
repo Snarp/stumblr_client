@@ -27,35 +27,50 @@ module Tumblr
     end
 
     # Performs post request
-    def post(path, params={})
+    def post(path, as_json: false, **params)
       if Hash === params && Array === params[:tags]
         params[:tags] = params[:tags].join(',')
       end
       response = connection.post do |req|
         req.url path
-        req.body = params unless params.empty?
+        if as_json
+          req.headers['Content-Type'] = 'application/json'
+          req.body = params.to_json unless params.empty?
+        else
+          req.body = params unless params.empty?
+        end
       end
       #Check for errors and encapsulate
       respond(response)
     end
 
     # Performs put request
-    def put(path, params={})
+    def put(path, as_json: false, **params)
       if Array === params[:tags]
         params[:tags] = params[:tags].join(',')
       end
       response = connection.put do |req|
         req.url path
-        req.body = params unless params.empty?
+        if as_json
+          req.headers['Content-Type'] = 'application/json'
+          req.body = params.to_json unless params.empty?
+        else
+          req.body = params unless params.empty?
+        end
       end
       respond(response)
     end
 
     # Performs delete request
-    def delete(path, params={})
+    def delete(path, as_json: false, **params)
       response = connection.delete do |req|
         req.url path
-        req.body = params unless params.empty?
+        if as_json
+          req.headers['Content-Type'] = 'application/json'
+          req.body = params.to_json unless params.empty?
+        else
+          req.body = params unless params.empty?
+        end
       end
       respond(response)
     end
