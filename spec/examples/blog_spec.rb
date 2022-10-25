@@ -78,9 +78,7 @@ describe Tumblr::Blog do
     context 'with valid parameters' do
 
       before do
-        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/followers", {
-          limit: 1
-        }).and_return('response')
+        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/followers", { limit: 1 }).and_return('response')
       end
 
       it 'should construct the request properly' do
@@ -168,9 +166,9 @@ describe Tumblr::Blog do
 
       before do
         expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/posts", {
-          limit: 1,
-          api_key: consumer_key
-        }).and_return('response')
+            limit: 1,
+            api_key: consumer_key
+          }).and_return('response')
       end
 
       it 'should construct the request properly' do
@@ -184,10 +182,10 @@ describe Tumblr::Blog do
 
       before do
         expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/posts/audio", {
-          limit: 1,
-          api_key: consumer_key,
-          type: 'audio'
-        }).and_return('response')
+            limit: 1,
+            api_key: consumer_key,
+            type: 'audio'
+          }).and_return('response')
       end
 
       it 'should construct the request properly' do
@@ -230,7 +228,7 @@ describe Tumblr::Blog do
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/notes", id: post_id).and_return('response')
+        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/notes", { id: post_id }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.notes blog_name, post_id
@@ -261,8 +259,8 @@ describe Tumblr::Blog do
         it 'should construct the call properly' do
           limit = 5
           expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/posts/#{ext}", {
-            limit: limit
-          }).and_return('response')
+              limit: limit
+            }).and_return('response')
           r = client.send type, blog_name, limit: limit
           expect(r).to eq('response')
         end
@@ -284,7 +282,10 @@ describe Tumblr::Blog do
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/posts/queue/reorder", post_id: 1, insert_after: 2).and_return('response')
+        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/posts/queue/reorder", {
+            post_id: 1, 
+            insert_after: 2
+          }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.reorder_queue blog_name, post_id: 1, insert_after: 2
@@ -313,7 +314,9 @@ describe Tumblr::Blog do
     context 'with valid parameters' do
       it 'should construct the request properly' do
         timestamp = Time.now.to_i
-        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/notifications", before: timestamp).and_return('response')
+        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/notifications", {
+            before: timestamp
+          }).and_return('response')
         r = client.notifications blog_name, before: timestamp
         expect(r).to eq('response')
       end
@@ -351,7 +354,7 @@ describe Tumblr::Blog do
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/blocks", blocked_tumblelog: other_blog_name).and_return('response')
+        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/blocks", { blocked_tumblelog: other_blog_name }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.block blog_name, other_blog_name
@@ -371,7 +374,10 @@ describe Tumblr::Blog do
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/blocks/bulk", blocked_tumblelogs: "#{other_blog_name},#{third_blog_name}", force: false).and_return('response')
+        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/blocks/bulk", {
+            blocked_tumblelogs: "#{other_blog_name},#{third_blog_name}", 
+            force: false
+          }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.block_bulk blog_name, [other_blog_name, third_blog_name]
@@ -391,7 +397,9 @@ describe Tumblr::Blog do
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:delete).once.with("v2/blog/#{blog_name}/blocks", blocked_tumblelog: other_blog_name).and_return('response')
+        expect(client).to receive(:delete).once.with("v2/blog/#{blog_name}/blocks", {
+            blocked_tumblelog: other_blog_name
+          }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.unblock blog_name, other_blog_name

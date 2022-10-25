@@ -22,7 +22,7 @@ module Tumblr
     # Gets the list of blogs the user is following
     def blog_following(blog_name, **options)
       validate_options([:limit, :offset], options)
-      get blog_path(blog_name, 'following'), options
+      get(blog_path(blog_name, 'following'), options)
     end
 
     # Determines whether own blog (followee_blog) is followed by follower_blog 
@@ -30,7 +30,7 @@ module Tumblr
     def followed_by(followee_blog, follower_blog=nil, **options)
       validate_options([:query], options)
       options[:query] ||= follower_blog
-      get blog_path(followee_blog, 'followed_by'), options
+      get(blog_path(followee_blog, 'followed_by'), options)
     end
     alias_method :blog_followed_by, :followed_by
 
@@ -66,13 +66,13 @@ module Tumblr
     def notes(blog_name, post_id=nil, **options)
       validate_options([:id, :before_timestamp, :mode], options)
       options[:id] ||= post_id
-      get(blog_path(blog_name, 'notes'), **options)
+      get(blog_path(blog_name, 'notes'), options)
     end
 
     # Get queued posts from blog (if authorized)
     def queue(blog_name, **options)
       validate_options([:limit, :offset], options)
-      get(blog_path(blog_name, 'posts/queue'), **options)
+      get(blog_path(blog_name, 'posts/queue'), options)
     end
 
     # Reorder blog's queue (if authorized)
@@ -89,27 +89,27 @@ module Tumblr
     # Get drafts posts from blog (if authorized)
     def draft(blog_name, **options)
       validate_options([:limit, :before_id], options)
-      get(blog_path(blog_name, 'posts/draft'), **options)
+      get(blog_path(blog_name, 'posts/draft'), options)
     end
     alias_method :drafts, :draft
 
     # Get pending submissions posts from blog (if authorized)
     def submissions(blog_name, **options)
       validate_options([:limit, :offset], options)
-      get(blog_path(blog_name, 'posts/submission'), **options)
+      get(blog_path(blog_name, 'posts/submission'), options)
     end
     alias_method :submission, :submissions
 
     # Get notifications for blog (if authorized)
     def notifications(blog_name, **options)
       validate_options([:before, :types], options)
-      get(blog_path(blog_name, 'notifications'), **options)
+      get(blog_path(blog_name, 'notifications'), options)
     end
 
     # Get blogs blocked by blog (if authorized)
     def blocks(blog_name, **options)
       validate_options([:limit, :offset], options)
-      get blog_path(blog_name, 'blocks'), options
+      get(blog_path(blog_name, 'blocks'), options)
     end
     alias_method :blocked, :blocks
 

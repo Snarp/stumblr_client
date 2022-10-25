@@ -14,9 +14,7 @@ describe Tumblr::Post do
     context 'when deleting a post' do
 
       before do
-        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/delete", {
-          :id => post_id
-        })
+        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/delete", { id: post_id })
       end
 
       it 'should setup a delete properly' do
@@ -32,22 +30,22 @@ describe Tumblr::Post do
       describe type do
         context 'when passing data as an array of filepaths' do
           before do
-            fakefile = OpenStruct.new :read => file_data
+            fakefile = OpenStruct.new read: file_data
             allow(File).to receive(:open).with(file_path + '.jpg').and_return(fakefile)
             expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/edit", {
-              'data[0]' => kind_of(Faraday::UploadIO),
+                'data[0]' => kind_of(Faraday::UploadIO),
                 :id => 123,
                 :type => type
-            }).and_return('response')
+              }).and_return('response')
           end
 
           it 'should be able to pass data as an array of filepaths' do
-            r = client.edit blog_name, :data => [file_path + ".jpg"], :id => 123, :type => type
+            r = client.edit blog_name, data: [file_path + ".jpg"], id: 123, type: type
             expect(r).to eq('response')
           end
 
           it 'should be able to pass data as an array of uploadios' do
-            r = client.edit blog_name, :data => [Faraday::UploadIO.new(StringIO.new, 'image/jpeg')], :id => 123, :type => type
+            r = client.edit blog_name, data: [Faraday::UploadIO.new(StringIO.new, 'image/jpeg')], id: 123, type: type
             expect(r).to eq('response')
           end
 
@@ -56,22 +54,22 @@ describe Tumblr::Post do
         context 'when passing data different ways' do
 
           before do
-            fakefile = OpenStruct.new :read => file_data
+            fakefile = OpenStruct.new read: file_data
             allow(File).to receive(:open).with(file_path + '.jpg').and_return(fakefile)
             expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/edit", {
-              'data' => kind_of(Faraday::UploadIO),
+                'data' => kind_of(Faraday::UploadIO),
                 :id => 123,
                 :type => type
-            }).and_return('response')
+              }).and_return('response')
           end
 
           it 'should be able to pass data as a single filepath' do
-            r = client.edit blog_name, :data => file_path + ".jpg", :id => 123, :type => type
+            r = client.edit blog_name, data: file_path + ".jpg", id: 123, type: type
             expect(r).to eq('response')
           end
 
           it 'should be able to pass data as a single uploadio' do
-            r = client.edit blog_name, :data => Faraday::UploadIO.new(StringIO.new, 'image/jpeg'), :id => 123, :type => type
+            r = client.edit blog_name, data: Faraday::UploadIO.new(StringIO.new, 'image/jpeg'), id: 123, type: type
             expect(r).to eq('response')
           end
 
@@ -80,10 +78,8 @@ describe Tumblr::Post do
     end
 
     it 'should make the correct call' do
-      expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/edit", {
-        :id => 123
-      }).and_return('response')
-      r = client.edit blog_name, :id => 123
+      expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/edit", { id: 123 }).and_return('response')
+      r = client.edit blog_name, id: 123
       expect(r).to eq('response')
     end
   end
@@ -91,10 +87,8 @@ describe Tumblr::Post do
   describe :reblog do
 
     it 'should make the correct call' do
-      expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/reblog", {
-        :id => 123
-      }).and_return('response')
-      r = client.reblog blog_name, :id => 123
+      expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/reblog", { id: 123 }).and_return('response')
+      r = client.reblog blog_name, id: 123
       expect(r).to eq('response')
     end
 
@@ -111,7 +105,7 @@ describe Tumblr::Post do
 
         it 'should raise an error' do
           expect {
-            client.send type, blog_name, :not => 'an option'
+            client.send type, blog_name, not: 'an option'
           }.to raise_error ArgumentError
         end
 
@@ -122,13 +116,13 @@ describe Tumblr::Post do
         before do
           @val = 'hello world'
           expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", {
-            field.to_sym => @val,
-            :type => type.to_s
-          }).and_return('response')
+                field.to_sym => @val,
+                :type => type.to_s
+              }).and_return('response')
         end
 
         it 'should set up the call properly' do
-          r = client.send type, blog_name, field.to_sym => @val
+          r = client.send type, blog_name, **{ field.to_sym => @val }
           expect(r).to eq('response')
         end
 
@@ -187,18 +181,18 @@ describe Tumblr::Post do
           fakefile = OpenStruct.new read: file_data
           allow(File).to receive(:open).with(file_path + '.jpg').and_return(fakefile)
           expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", {
-            'data[0]' => kind_of(Faraday::UploadIO),
-            :type => type.to_s
-          }).and_return('post')
+                'data[0]' => kind_of(Faraday::UploadIO),
+                :type => type.to_s
+              }).and_return('post')
         end
         
         it 'should be able to pass data as an array of filepaths' do
-          r = client.send type, blog_name, :data => [file_path + ".jpg"]
+          r = client.send type, blog_name, data: [file_path + ".jpg"]
           expect(r).to eq('post')
         end
 
         it 'should be able to pass data as an array of uploadios' do
-          r = client.send type, blog_name, :data => [Faraday::UploadIO.new(StringIO.new, 'image/jpeg')]
+          r = client.send type, blog_name, data: [Faraday::UploadIO.new(StringIO.new, 'image/jpeg')]
           expect(r).to eq('post')
         end
 
@@ -207,21 +201,21 @@ describe Tumblr::Post do
       context 'when passing data different ways' do
 
         before do
-          fakefile = OpenStruct.new :read => file_data
+          fakefile = OpenStruct.new read: file_data
           allow(File).to receive(:open).with(file_path + '.jpg').and_return(fakefile)
           expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", {
-            'data' => kind_of(Faraday::UploadIO),
-            :type => type.to_s
-          }).and_return('post')
+                'data' => kind_of(Faraday::UploadIO),
+                :type => type.to_s
+              }).and_return('post')
         end
 
         it 'should be able to pass data as a single filepath' do
-          r = client.send type, blog_name, :data => file_path + ".jpg"
+          r = client.send type, blog_name, data: file_path + ".jpg"
           expect(r).to eq('post')
         end
 
         it 'should be able to pass data as a single uploadio' do
-          r = client.send type, blog_name, :data => Faraday::UploadIO.new(StringIO.new, 'image/jpeg')
+          r = client.send type, blog_name, data: Faraday::UploadIO.new(StringIO.new, 'image/jpeg')
           expect(r).to eq('post')
         end
 
@@ -233,29 +227,26 @@ describe Tumblr::Post do
         context 'when passing source different ways' do
 
           it 'should be able to be passed as a string' do
-            expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", {
-              source: source,
-              :type => type.to_s
-            })
+            expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", { source: source, type: type.to_s })
             client.send type, blog_name, source: source
           end
 
           it 'should be able to be passed as an array' do
             expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", {
-              'source[0]' => source,
-              'source[1]' => source,
-              :type => type.to_s
-            })
+                'source[0]' => source,
+                'source[1]' => source,
+                :type => type.to_s
+              })
             client.send type, blog_name, source: [source, source]
           end
 
           it 'should be able to be passed as an array on edit' do
             expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post/edit", {
-              :id => post_id,
-              'source[0]' => source,
-              'source[1]' => source
-            })
-            client.edit blog_name, :id => post_id, source: [source, source]
+                :id => post_id,
+                'source[0]' => source,
+                'source[1]' => source
+              })
+            client.edit blog_name, id: post_id, source: [source, source]
           end
 
         end
