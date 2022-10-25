@@ -20,9 +20,9 @@ describe Tumblr::User do
     context 'when using options that are not allowed' do
 
       it 'should raise an error' do
-        expect(lambda {
-          client.dashboard :not => 'an option'
-        }).to raise_error ArgumentError
+        expect {
+          client.dashboard not: 'an option'
+        }.to raise_error ArgumentError
       end
 
     end
@@ -31,9 +31,9 @@ describe Tumblr::User do
 
       it 'should make the correct call' do
         expect(client).to receive(:get).with('v2/user/dashboard', {
-          :limit => 25
+          limit: 25
         }).and_return('response')
-        r = client.dashboard :limit => 25
+        r = client.dashboard limit: 25
         expect(r).to eq('response')
       end
 
@@ -61,10 +61,10 @@ describe Tumblr::User do
 
          it 'should make the reqest properly' do
            expect(client).to receive(:get).with("v2/user/#{type}", {
-             :limit => 10,
-             :offset => 5
+             limit: 10,
+             offset: 5
            }).and_return('response')
-           r = client.send type, :offset => 5, :limit => 10
+           r = client.send type, offset: 5, limit: 10
            expect(r).to eq('response')
          end
 
@@ -83,8 +83,8 @@ describe Tumblr::User do
         id = 123
         reblog_key = 'hello'
         expect(client).to receive(:post).with("v2/user/#{type}", {
-          :id => id,
-          :reblog_key => reblog_key
+          id: id,
+          reblog_key: reblog_key
         }).and_return('response')
         r = client.send type, id, reblog_key
         expect(r).to eq('response')
@@ -102,7 +102,7 @@ describe Tumblr::User do
       it 'should make the request properly' do
         url = 'some url'
         expect(client).to receive(:post).with("v2/user/#{type}", {
-          :url => url
+          url: url
         }).and_return('response')
         r = client.send type, url
         expect(r).to eq('response')

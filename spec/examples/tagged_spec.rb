@@ -16,8 +16,8 @@ describe Tumblr::Tagged do
 
     before do
       expect(client).to receive(:get).once.with('v2/tagged', {
-        :tag => tag,
-        :api_key => consumer_key
+        tag: tag,
+        api_key: consumer_key
       }).and_return('response')
     end
 

@@ -110,9 +110,9 @@ describe Tumblr::Post do
       context 'when passing an option which is not allowed' do
 
         it 'should raise an error' do
-          expect(lambda {
+          expect {
             client.send type, blog_name, :not => 'an option'
-          }).to raise_error ArgumentError
+          }.to raise_error ArgumentError
         end
 
       end
@@ -141,7 +141,7 @@ describe Tumblr::Post do
   describe :create_post do
 
     let(:blog_name) { 'seejohnrun' }
-    let(:args) { { :source => 'somesource' } }
+    let(:args) { { source: 'somesource' } }
 
     context 'with a valid post type' do
 
@@ -158,9 +158,9 @@ describe Tumblr::Post do
     context 'with an invalid post type' do
 
       it 'should raise an error' do
-        expect(lambda do
-          client.create_post(:fake, blog_name, args)
-        end).to raise_error ArgumentError, '"fake" is not a valid post type'
+        expect {
+          client.create_post(:fake, blog_name, **args)
+        }.to raise_error ArgumentError, '"fake" is not a valid post type'
       end
 
     end
@@ -175,16 +175,16 @@ describe Tumblr::Post do
       context 'when passing an option which is not allowed' do
 
         it 'should raise an error' do
-          expect(lambda {
-            client.send type, blog_name, :not => 'an option'
-          }).to raise_error ArgumentError
+          expect {
+            client.send type, blog_name, not: 'an option'
+          }.to raise_error ArgumentError
         end
 
       end
 
       context 'when passing data as an array of filepaths' do
         before do
-          fakefile = OpenStruct.new :read => file_data
+          fakefile = OpenStruct.new read: file_data
           allow(File).to receive(:open).with(file_path + '.jpg').and_return(fakefile)
           expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", {
             'data[0]' => kind_of(Faraday::UploadIO),
@@ -234,10 +234,10 @@ describe Tumblr::Post do
 
           it 'should be able to be passed as a string' do
             expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/post", {
-              :source => source,
+              source: source,
               :type => type.to_s
             })
-            client.send type, blog_name, :source => source
+            client.send type, blog_name, source: source
           end
 
           it 'should be able to be passed as an array' do
@@ -246,7 +246,7 @@ describe Tumblr::Post do
               'source[1]' => source,
               :type => type.to_s
             })
-            client.send type, blog_name, :source => [source, source]
+            client.send type, blog_name, source: [source, source]
           end
 
           it 'should be able to be passed as an array on edit' do
@@ -255,7 +255,7 @@ describe Tumblr::Post do
               'source[0]' => source,
               'source[1]' => source
             })
-            client.edit blog_name, :id => post_id, :source => [source, source]
+            client.edit blog_name, :id => post_id, source: [source, source]
           end
 
         end
@@ -265,9 +265,9 @@ describe Tumblr::Post do
       context 'when passing colliding options' do
 
         it 'should get an error when passing data & source' do
-          expect(lambda {
-            client.send type, blog_name, :data => 'hi', :source => 'bye'
-          }).to raise_error ArgumentError
+          expect {
+            client.send type, blog_name, data: 'hi', source: 'bye'
+          }.to raise_error ArgumentError
         end
 
       end

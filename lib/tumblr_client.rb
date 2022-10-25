@@ -17,7 +17,7 @@ module Tumblr
 
   class << self
     def new(options={})
-      Tumblr::Client.new(options)
+      Tumblr::Client.new(**options)
     end
   end
 

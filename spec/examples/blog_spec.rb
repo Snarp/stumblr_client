@@ -8,14 +8,14 @@ describe Tumblr::Blog do
   let(:third_blog_name) { 'engineering' }
   let(:consumer_key) { 'ckey' }
   let(:client) do
-    Tumblr::Client.new :consumer_key => consumer_key
+    Tumblr::Client.new consumer_key: consumer_key
   end
 
   describe :blog_info do
 
     it 'should make the proper request' do
       expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/info", {
-        :api_key => consumer_key
+        api_key: consumer_key
       }).and_return 'response'
       r = client.blog_info blog_name
       expect(r).to eq('response')
@@ -23,7 +23,7 @@ describe Tumblr::Blog do
 
     it 'should make the proper request with a short blog name' do
       expect(client).to receive(:get).once.with("v2/blog/b.tumblr.com/info", {
-        :api_key => consumer_key
+        api_key: consumer_key
       }).and_return 'response'
       r = client.blog_info 'b'
       expect(r).to eq('response')
@@ -68,9 +68,9 @@ describe Tumblr::Blog do
     context 'with invalid parameters' do
 
       it 'should raise an error' do
-        expect(lambda {
-          client.followers blog_name, :not => 'an option'
-        }).to raise_error ArgumentError
+        expect {
+          client.followers blog_name, not: 'an option'
+        }.to raise_error ArgumentError
       end
 
     end
@@ -79,31 +79,31 @@ describe Tumblr::Blog do
 
       before do
         expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/followers", {
-          :limit => 1
+          limit: 1
         }).and_return('response')
       end
 
       it 'should construct the request properly' do
-        r = client.followers blog_name, :limit => 1
-        expect(r).to eq'response'
+        r = client.followers blog_name, limit: 1
+        expect(r).to eq 'response'
       end
 
     end
 
   end
 
-  describe :blow_following do
+  describe :blog_following do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
-          client.blog_following blog_name, :not => 'an option'
-        }).to raise_error ArgumentError
+        expect {
+          client.blog_following blog_name, not: 'an option'
+        }.to raise_error ArgumentError
       end
     end
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/following", limit: 1).and_return('response')
+        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/following", { limit: 1 }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.blog_following blog_name, limit: 1
@@ -115,15 +115,15 @@ describe Tumblr::Blog do
   describe :followed_by do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
-          client.followed_by blog_name, other_blog_name, :not => 'an option'
-        }).to raise_error ArgumentError
+        expect {
+          client.followed_by blog_name, other_blog_name, not: 'an option'
+        }.to raise_error ArgumentError
       end
     end
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/followed_by", query: other_blog_name).and_return('response')
+        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/followed_by", { query: other_blog_name }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.followed_by blog_name, other_blog_name
@@ -137,9 +137,9 @@ describe Tumblr::Blog do
     context 'with invalid parameters' do
 
       it 'should raise an error' do
-        expect(lambda {
-          client.blog_likes blog_name, :not => 'an option'
-        }).to raise_error ArgumentError
+        expect {
+          client.blog_likes blog_name, not: 'an option'
+        }.to raise_error ArgumentError
       end
 
     end
@@ -148,13 +148,13 @@ describe Tumblr::Blog do
 
       before do
         expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/likes", {
-          :limit => 1,
-          :api_key => consumer_key
-        }).and_return('response')
+            limit: 1,
+            api_key: consumer_key
+          }).and_return('response')
       end
 
       it 'should construct the request properly' do
-        r = client.blog_likes blog_name, :limit => 1
+        r = client.blog_likes blog_name, limit: 1
         expect(r).to eq('response')
       end
 
@@ -168,13 +168,13 @@ describe Tumblr::Blog do
 
       before do
         expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/posts", {
-          :limit => 1,
-          :api_key => consumer_key
+          limit: 1,
+          api_key: consumer_key
         }).and_return('response')
       end
 
       it 'should construct the request properly' do
-        r = client.posts blog_name, :limit => 1
+        r = client.posts blog_name, limit: 1
         expect(r).to eq('response')
       end
 
@@ -184,14 +184,14 @@ describe Tumblr::Blog do
 
       before do
         expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/posts/audio", {
-          :limit => 1,
-          :api_key => consumer_key,
-          :type => 'audio'
+          limit: 1,
+          api_key: consumer_key,
+          type: 'audio'
         }).and_return('response')
       end
 
       it 'should construct the request properly' do
-        r = client.posts blog_name, :limit => 1, :type => 'audio'
+        r = client.posts blog_name, limit: 1, type: 'audio'
         expect(r).to eq('response')
       end
 
@@ -202,9 +202,9 @@ describe Tumblr::Blog do
   describe :get_post do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.get_post blog_name, post_id, not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 
@@ -222,9 +222,9 @@ describe Tumblr::Blog do
   describe :notes do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.notes blog_name, post_id, not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 
@@ -249,9 +249,9 @@ describe Tumblr::Blog do
       context 'when using parameters other than limit & offset' do
 
         it 'should raise an error' do
-          expect(lambda {
-            client.send type, blog_name, :not => 'an option'
-          }).to raise_error ArgumentError
+          expect {
+            client.send type, blog_name, not: 'an option'
+          }.to raise_error ArgumentError
         end
 
       end
@@ -261,9 +261,9 @@ describe Tumblr::Blog do
         it 'should construct the call properly' do
           limit = 5
           expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/posts/#{ext}", {
-            :limit => limit
+            limit: limit
           }).and_return('response')
-          r = client.send type, blog_name, :limit => limit
+          r = client.send type, blog_name, limit: limit
           expect(r).to eq('response')
         end
 
@@ -276,9 +276,9 @@ describe Tumblr::Blog do
   describe :reorder_queue do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.reorder_queue blog_name, not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 
@@ -304,9 +304,9 @@ describe Tumblr::Blog do
   describe :notifications do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.notifications blog_name, not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 
@@ -323,15 +323,15 @@ describe Tumblr::Blog do
   describe :blocks do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.blocks blog_name, not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 
     context 'with valid parameters' do
       before do
-        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/blocks", limit: 1).and_return('response')
+        expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/blocks", { limit: 1 }).and_return('response')
       end
       it 'should construct the request properly' do
         r = client.blocks blog_name, limit: 1
@@ -343,9 +343,9 @@ describe Tumblr::Blog do
   describe :block do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.block blog_name, other_blog_name, not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 
@@ -363,9 +363,9 @@ describe Tumblr::Blog do
   describe :block_bulk do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.block_bulk blog_name, [other_blog_name, third_blog_name], not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 
@@ -383,9 +383,9 @@ describe Tumblr::Blog do
   describe :unblock do
     context 'with invalid parameters' do
       it 'should raise an error' do
-        expect(lambda {
+        expect {
           client.unblock blog_name, other_blog_name, not: 'an option'
-        }).to raise_error ArgumentError
+        }.to raise_error ArgumentError
       end
     end
 

@@ -35,10 +35,10 @@ module Tumblr
 
     def credentials
       {
-        :consumer_key => @consumer_key,
-        :consumer_secret => @consumer_secret,
-        :token => @oauth_token,
-        :token_secret => @oauth_token_secret
+        consumer_key: @consumer_key,
+        consumer_secret: @consumer_secret,
+        token: @oauth_token,
+        token_secret: @oauth_token_secret
       }
     end
 
