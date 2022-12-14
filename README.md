@@ -1,6 +1,6 @@
 # STumblr Ruby Gem
 
-[![Build Status](https://travis-ci.com/Snarp/stumblr_client.svg?token=gQZCnsXnzRnxzTUwfki8&branch=main)](https://travis-ci.com/Snarp/stumblr_client)
+[![Build Status](https://app.travis-ci.com/Snarp/stumblr_client.svg?branch=main)](https://app.travis-ci.com/Snarp/stumblr_client)
 
 This is a fork of the official Ruby wrapper for the Tumblr v2 API. It does not yet support all endpoints currently available on the [Tumblr API](https://www.tumblr.com/docs/en/api/v2), as the following functions are unfinished:
 
