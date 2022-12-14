@@ -4,9 +4,12 @@ notifications:
   email:
     - admin@sarahpin.com
 branches:
-  only:
-    - main
-    - master
+  # only:
+  #   - main
+  #   - master
+  except: 
+    - update-blog-posts-get-tag-param-handling
+    - add-blog-bulk-blocks-and-user-filtered-tags
 rvm:
   - 2.6
   - 2.7
