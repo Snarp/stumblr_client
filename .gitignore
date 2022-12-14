@@ -16,3 +16,5 @@ Gemfile.lock
 README.html
 TODO.html
 _init_client.rb
+
+.ruby-version
