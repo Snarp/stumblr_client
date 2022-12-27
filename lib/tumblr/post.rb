@@ -11,11 +11,11 @@ module Tumblr
       convert_source_array :source, options
       extract_data!(options) if DATA_POST_TYPES.include?(options[:type])
 
-      post(blog_path(blog_name, 'post/edit'), options) # REMOVED: **options)
+      post(blog_path(blog_name, 'post/edit'), options)
     end
 
     def reblog(blog_name, **options)
-      post(blog_path(blog_name, 'post/reblog'), options) # REMOVED: **options)
+      post(blog_path(blog_name, 'post/reblog'), options)
     end
 
     def delete_post(blog_name, id)
@@ -30,7 +30,7 @@ module Tumblr
 
       options[:type] = 'photo'
       extract_data!(options)
-      post(post_path(blog_name), options) # REMOVED: **options)
+      post(post_path(blog_name), options)
     end
 
     def quote(blog_name, **options)
@@ -38,7 +38,7 @@ module Tumblr
       validate_options(valid_opts, options)
 
       options[:type] = 'quote'
-      post(post_path(blog_name), options) # REMOVED: **options)
+      post(post_path(blog_name), options)
     end
 
     def text(blog_name, **options)
@@ -46,7 +46,7 @@ module Tumblr
       validate_options(valid_opts, options)
 
       options[:type] = 'text'
-      post(post_path(blog_name), options) # REMOVED: **options)
+      post(post_path(blog_name), options)
     end
 
     def link(blog_name, **options)
@@ -54,7 +54,7 @@ module Tumblr
       validate_options(valid_opts, options)
 
       options[:type] = 'link'
-      post(post_path(blog_name), options) # REMOVED: **options)
+      post(post_path(blog_name), options)
     end
 
     def chat(blog_name, **options)
@@ -62,7 +62,7 @@ module Tumblr
       validate_options(valid_opts, options)
 
       options[:type] = 'chat'
-      post(post_path(blog_name), options) # REMOVED: **options)
+      post(post_path(blog_name), options)
     end
 
     def audio(blog_name, **options)
@@ -72,7 +72,7 @@ module Tumblr
 
       options[:type] = 'audio'
       extract_data!(options)
-      post(post_path(blog_name), options) # REMOVED: **options)
+      post(post_path(blog_name), options)
     end
 
     def video(blog_name, **options)
@@ -82,7 +82,7 @@ module Tumblr
 
       options[:type] = 'video'
       extract_data!(options)
-      post(post_path(blog_name), options) # REMOVED: **options)
+      post(post_path(blog_name), options)
     end
 
     def create_post(type, blog_name, **options)
