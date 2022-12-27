@@ -5,6 +5,11 @@ module Tumblr
       get('v2/user/info')
     end
 
+    # @return [Hash] `{ user: {blogs:, follows:, likes:, photos:, ...} }`
+    def limits
+      get('v2/user/limits')
+    end
+
     def dashboard(**options)
       valid_opts=[:limit,:offset,:type,:since_id,:reblog_info,:notes_info,:npf]
       validate_options(valid_opts, options)

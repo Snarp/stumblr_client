@@ -8,6 +8,7 @@ branches:
   #   - main
   #   - master
   except: 
+    - splat-options-for-ruby-3
     - update-blog-posts-get-tag-param-handling
     - add-blog-bulk-blocks-and-user-filtered-tags
 rvm:

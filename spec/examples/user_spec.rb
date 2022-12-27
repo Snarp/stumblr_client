@@ -15,6 +15,14 @@ describe Tumblr::User do
 
   end
 
+  describe :limits do
+    it 'should make the request properly' do
+      expect(client).to receive(:get).with('v2/user/limits').and_return('response')
+      r = client.limits
+      expect(r).to eq('response')
+    end
+  end
+
   describe :dashboard do
 
     context 'when using options that are not allowed' do

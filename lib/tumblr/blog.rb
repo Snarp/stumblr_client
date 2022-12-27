@@ -102,7 +102,7 @@ module Tumblr
 
     # Get notifications for blog (if authorized)
     def notifications(blog_name, **options)
-      validate_options([:before, :types], options)
+      validate_options([:before, :types, :rollups, :omit_post_ids], options)
       get(blog_path(blog_name, 'notifications'), options)
     end
 
