@@ -69,6 +69,17 @@ module Tumblr
       get(blog_path(blog_name, 'notes'), options)
     end
 
+    # Mute a post's notifications
+    def mute_post(blog_name, post_id, **options)
+      validate_options([:mute_length_seconds], options)
+      post(blog_path(blog_name, "posts/#{post_id}/mute"), options)
+    end
+
+    # Unmute a post's notifications
+    def unmute_post(blog_name, post_id)
+      delete(blog_path(blog_name, "posts/#{post_id}/mute"))
+    end
+
     # Get queued posts from blog (if authorized)
     def queue(blog_name, **options)
       validate_options([:limit, :offset], options)

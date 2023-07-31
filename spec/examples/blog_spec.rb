@@ -237,6 +237,50 @@ describe Tumblr::Blog do
     end
   end # describe :notes
 
+  describe :mute_post do
+
+    context 'with invalid parameters' do
+      it 'should raise an error' do
+        expect {
+          client.mute_post blog_name, post_id, not: 'an option'
+        }.to raise_error ArgumentError
+      end
+    end
+
+    context 'with valid parameters' do
+      before do
+        expect(client).to receive(:post).once.with("v2/blog/#{blog_name}/posts/#{post_id}/mute", {}).and_return('response')
+      end
+      it 'should construct the request properly' do
+        r = client.mute_post blog_name, post_id
+        expect(r).to eq('response')
+      end
+    end
+
+  end # describe :mute_post
+
+  describe :unmute_post do
+
+    context 'with invalid parameters' do
+      it 'should raise an error' do
+        expect {
+          client.unmute_post blog_name
+        }.to raise_error ArgumentError
+      end
+    end
+
+    context 'with valid parameters' do
+      before do
+        expect(client).to receive(:delete).once.with("v2/blog/#{blog_name}/posts/#{post_id}/mute").and_return('response')
+      end
+      it 'should construct the request properly' do
+        r = client.unmute_post blog_name, post_id
+        expect(r).to eq('response')
+      end
+    end
+
+  end # describe :unmute_post
+
   # These are all just lists of posts with pagination
   [:queue, :draft, :submissions].each do |type|
 
