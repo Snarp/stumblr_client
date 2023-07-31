@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Tumblr::Blog do
 
   let(:blog_name) { 'seejohnrun.tumblr.com' }
-  let(:post_id) { 45693025 }
+  let(:blog_uuid) { "t:jKTcbsxY9eyMrH6M9rux4Q" } # for "seejohnrun.tumblr.com"
+  let(:post_id) { 45693025 } # for "seejohnrun.tumblr.com"
   let(:other_blog_name) { 'staff' }
   let(:third_blog_name) { 'engineering' }
   let(:consumer_key) { 'ckey' }
@@ -13,7 +14,7 @@ describe Tumblr::Blog do
 
   describe :blog_info do
 
-    it 'should make the proper request' do
+    it 'should make the proper request with a full blog name' do
       expect(client).to receive(:get).once.with("v2/blog/#{blog_name}/info", {
         api_key: consumer_key
       }).and_return 'response'
@@ -26,6 +27,14 @@ describe Tumblr::Blog do
         api_key: consumer_key
       }).and_return 'response'
       r = client.blog_info 'b'
+      expect(r).to eq('response')
+    end
+
+    it 'should make the proper request with a blog uuid' do
+      expect(client).to receive(:get).once.with("v2/blog/#{blog_uuid}/info", {
+        api_key: consumer_key
+      }).and_return 'response'
+      r = client.blog_info blog_uuid
       expect(r).to eq('response')
     end
 
