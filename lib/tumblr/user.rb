@@ -57,7 +57,7 @@ module Tumblr
       post('v2/user/filtered_content', options)
     end
 
-    # REVIEW: As of 2023-07-31, this API route still appears to be broken; it always returns `{:status=>400, :msg=>"Bad Request"}`. This is true regardless of whether the request header Content-Type is set to 'application/json' (string array) or 'application/x-www-form-urlencoded' (single string).
+    # REVIEW: As of 2023-07-31, this API route still appears to be broken; it always returns `{:status=>400, :msg=>"Bad Request"}`. This is true regardless of whether the request header Content-Type is set to 'application/json' (string array) or 'application/x-www-form-urlencoded' (single string) and regardless of content format. Attempting to use `v2/user/filtered_content/#{filtered_content}` (as per `add_filtered_tags`) returns `{:status=>404, :msg=>"Not Found"}`
     # 
     # @param [String]        filtered_content
     # @param [Hash]          options
