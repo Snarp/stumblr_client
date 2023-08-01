@@ -12,6 +12,17 @@
 
 - Maybe: Add YARDoc comments?
 
+- Probably need to integrate more-precise means of setting request `Content-Type` headers in `Tumblr::Request` to accomodate [this stuff](https://github.com/tumblr/docs/blob/master/api.md#userfiltered_content---content-filtering):
+
+        POST https://api.tumblr.com/v2/user/filtered_content
+        Content-Type: application/x-www-form-urlencoded
+        filtered_content=something
+
+        POST https://api.tumblr.com/v2/user/filtered_content
+        Content-Type: application/json
+        { "filtered_content": [ "something", "technology" ] }
+
+
 ## Done
 
 - <del>Either finish changing all instances of `options={}` to `**options` to respect Ruby 3 changes or rewind last set of changes</del>

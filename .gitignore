@@ -12,7 +12,8 @@ Gemfile.lock
 
 .bundle
 
-*.env*
+*.env
+.env.*
 README.html
 TODO.html
 _init_client.rb
