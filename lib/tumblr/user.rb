@@ -52,18 +52,12 @@ module Tumblr
     # @param [Hash]                  options
     # @return [Array, Hash]   `[]` if successful, otherwise error message Hash
     def add_filtered_content(filtered_strings=[], **options)
-      validate_options([:filtered_content], options)
       options[:filtered_content] ||= filtered_strings
-      if options[:filtered_content].is_a?(Array)
-        post('v2/user/filtered_content', as_json: true, **options)
-      elsif options[:filtered_content].is_a?(String)
-        post('v2/user/filtered_content', **options)
-      else
-        raise ArgumentError.new
-      end
+      options[:as_json]=true if options[:filtered_content].is_a?(Array)
+      post('v2/user/filtered_content', options)
     end
 
-    # REVIEW: As of 2022-02-02, this API route appears to be broken; it always returns `{:status=>400, :msg=>"Bad Request"}`. This is true regardless of whether the request body uses a 'application/json' (string array) or 'application/x-www-form-urlencoded' (single string) request body.
+    # REVIEW: As of 2023-07-31, this API route still appears to be broken; it always returns `{:status=>400, :msg=>"Bad Request"}`. This is true regardless of whether the request header Content-Type is set to 'application/json' (string array) or 'application/x-www-form-urlencoded' (single string).
     # 
     # @param [String]        filtered_content
     # @param [Hash]          options
