@@ -36,7 +36,7 @@ module Tumblr
 
     # Gets the list of likes for the blog
     def blog_likes(blog_name, **options)
-      validate_options([:limit, :offset, :before, :after], options)
+      validate_options([:limit, :offset, :before, :after, :npf], options)
       url = blog_path(blog_name, 'likes')
 
       params = { api_key: @consumer_key }
@@ -82,7 +82,7 @@ module Tumblr
 
     # Get queued posts from blog (if authorized)
     def queue(blog_name, **options)
-      validate_options([:limit, :offset], options)
+      validate_options([:limit, :offset, :filter, :npf], options)
       get(blog_path(blog_name, 'posts/queue'), options)
     end
 
@@ -99,14 +99,14 @@ module Tumblr
 
     # Get drafts posts from blog (if authorized)
     def draft(blog_name, **options)
-      validate_options([:limit, :before_id], options)
+      validate_options([:limit, :before_id, :npf], options)
       get(blog_path(blog_name, 'posts/draft'), options)
     end
     alias_method :drafts, :draft
 
     # Get pending submissions posts from blog (if authorized)
     def submissions(blog_name, **options)
-      validate_options([:limit, :offset], options)
+      validate_options([:limit, :offset, :npf], options)
       get(blog_path(blog_name, 'posts/submission'), options)
     end
     alias_method :submission, :submissions
