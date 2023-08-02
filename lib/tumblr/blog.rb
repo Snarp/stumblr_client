@@ -2,8 +2,9 @@ module Tumblr
   module Blog
 
     # Gets the info about the blog
-    def blog_info(blog_name)
-      get(blog_path(blog_name, 'info'), api_key: @consumer_key)
+    def blog_info(blog_name, **options)
+      validate_options([:fields], options)
+      get(blog_path(blog_name, 'info'), api_key: @consumer_key, **options)
     end
 
     # Gets the avatar URL of specified size
@@ -99,7 +100,7 @@ module Tumblr
 
     # Get drafts posts from blog (if authorized)
     def draft(blog_name, **options)
-      validate_options([:limit, :before_id, :npf], options)
+      validate_options([:limit, :before_id, :filter, :npf], options)
       get(blog_path(blog_name, 'posts/draft'), options)
     end
     alias_method :drafts, :draft
