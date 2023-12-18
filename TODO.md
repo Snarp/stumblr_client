@@ -2,6 +2,7 @@
 
 ## Todo
 
+
 - [`/blog/posts` create-or-reblog action](https://github.com/tumblr/docs/blob/master/api.md#posts---createreblog-a-post-neue-post-format) - `Tumblr::Post` module needs to be overhauled to support NPF format.
 
     - [Determine whether `/blog/posts` POST errors in creating new NPF posts relate to Faraday client handling of content types](https://github.com/tumblr/docs/blob/master/api.md#request-content-types)
@@ -24,6 +25,8 @@
 
 
 ## Done
+
+- <del>Allow use of the `:npf` argument in all routes that fetch arrays of posts: `drafts`, `blog_likes`, `queue`, `submissions`, `tagged`, `likes`.</del>
 
 - <del>Either finish changing all instances of `options={}` to `**options` to respect Ruby 3 changes or rewind last set of changes</del>
     
