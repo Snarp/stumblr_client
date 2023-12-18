@@ -8,7 +8,6 @@ on:
     branches:
       - main
       - master
-      - add-support-for-newer-request-params
 
 jobs:
   tests:
