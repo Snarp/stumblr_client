@@ -18,7 +18,12 @@ module Tumblr
       def validate_options(valid_opts, opts)
         bad_opts = opts.select { |val| !valid_opts.include?(val) }
         if bad_opts.any?
-          raise ArgumentError.new "Invalid options (#{bad_opts.keys.join(', ')}) passed, only #{valid_opts} allowed."
+          msg = "Invalid options (#{bad_opts.keys.join(', ')}) passed, only #{valid_opts} allowed."
+          if no_validate_opts
+            warn(msg)
+          else
+            raise ArgumentError.new(msg)
+          end
         end
       end
 

@@ -16,11 +16,13 @@ describe Tumblr::User do
   end
 
   describe :limits do
+
     it 'should make the request properly' do
       expect(client).to receive(:get).with('v2/user/limits').and_return('response')
       r = client.limits
       expect(r).to eq('response')
     end
+
   end
 
   describe :dashboard do
@@ -31,6 +33,15 @@ describe Tumblr::User do
         expect {
           client.dashboard not: 'an option'
         }.to raise_error ArgumentError
+      end
+
+      it 'should not raise an error if no_validate_opts is set to true' do
+        nv_client = Tumblr::Client.new(no_validate_opts: true)
+        expect(nv_client).to receive(:get).with('v2/user/dashboard', {
+          not: 'an option'
+        }).and_return('response')
+        r = nv_client.dashboard not: 'an option'
+        expect(r).to eq('response')
       end
 
     end
@@ -121,57 +132,70 @@ describe Tumblr::User do
   end  
 
   describe :filtered_content do
+    
     it 'should make the reqest properly' do
       expect(client).to receive(:get).with("v2/user/filtered_content").and_return('response')
       r = client.filtered_content
       expect(r).to eq('response')
     end
+
   end
 
   describe :add_filtered_content do
+
     it 'should make a single-string request properly' do
       expect(client).to receive(:post).with("v2/user/filtered_content", {filtered_content: 'str'}).and_return('response')
       r = client.add_filtered_content 'str'
       expect(r).to eq('response')
     end
+
     it 'should make a string array request properly' do
       expect(client).to receive(:post).with("v2/user/filtered_content", {as_json: true, filtered_content: ['str1','str2']}).and_return('response')
       r = client.add_filtered_content ['str1','str2']
       expect(r).to eq('response')
     end
+
   end
 
   describe :delete_filtered_content do
+
     it 'should make the reqest properly' do
       expect(client).to receive(:delete).with("v2/user/filtered_content", filtered_content: ['str']).and_return('response')
       r = client.delete_filtered_content ['str']
       expect(r).to eq('response')
     end
+
   end
 
 
   describe :filtered_tags do
+
     it 'should make the reqest properly' do
       expect(client).to receive(:get).with("v2/user/filtered_tags").and_return('response')
       r = client.filtered_tags
       expect(r).to eq('response')
     end
+
   end
 
   describe :add_filtered_tags do
+
     it 'should make the reqest properly' do
       expect(client).to receive(:post).with("v2/user/filtered_tags", {as_json: true, filtered_tags: ['str']}).and_return('response')
       r = client.add_filtered_tags ['str']
       expect(r).to eq('response')
     end
+
   end
 
   describe :delete_filtered_tag do
+
     it 'should make the reqest properly' do
       expect(client).to receive(:delete).with("v2/user/filtered_tags/str").and_return('response')
       r = client.delete_filtered_tag 'str'
       expect(r).to eq('response')
     end
+
   end
 
 end

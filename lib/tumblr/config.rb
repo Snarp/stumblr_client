@@ -9,7 +9,8 @@ module Tumblr
       :client,
       :api_scheme, 
       :api_host, 
-      :symbolize_names
+      :symbolize_names, 
+      :no_validate_opts
     ]
 
     attr_accessor *VALID_OPTIONS_KEYS
